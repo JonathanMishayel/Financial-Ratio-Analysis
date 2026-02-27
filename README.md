@@ -2,7 +2,7 @@
 # Financial Performance Analysis: Jetwing Lighthouse Hotels PLC (FY 2024-2025)
 
 ## 📌 Project Overview
-This project provides a comprehensive financial evaluation of **Jetwing Lighthouse Hotels PLC**, a prominent leader in Sri Lanka’s tourism and hospitality industry[cite: 23, 28]. [cite_start]Using data-driven techniques and **R programming**, the analysis tracks the company’s transition from post-pandemic recovery to significant profitability during the 2024-2025 financial period[cite: 29, 32].
+This project provides a comprehensive financial evaluation of **Jetwing Lighthouse Hotels PLC**, a prominent leader in Sri Lanka’s tourism and hospitality industry. Using data-driven techniques and **R programming**, the analysis tracks the company’s transition from post-pandemic recovery to significant profitability during the 2024-2025 financial period.
 
 The study focuses on the iconic **Jetwing Lighthouse** in Galle and **Hotel J** in Unawatuna, assessing how record tourist arrivals—which boosted sector revenue by over 53%—impacted the group's bottom line.
 
