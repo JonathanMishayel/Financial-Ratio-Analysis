@@ -1,0 +1,408 @@
+---
+title: "Financial Ratio Analysis - Jetwing Hotels"
+author: "Jonathan Mishayel"
+date: "2026-02-26"
+output: html_document
+---
+  
+  
+  
+  
+  
+library(scales)
+
+
+
+
+```{r}
+Income_Statement <- read.csv("C:/Users/Dell/Documents/NIBM Lecture notes (HND)/Computational Finance/Cw/Jetwing Hotels/Income_Statement-2024-25.csv", 
+                             header = FALSE,
+                             stringsAsFactors = FALSE)
+
+print(Income_Statement)
+```
+
+
+```{r}
+Balance_Sheet <- read.csv("C:/Users/Dell/Documents/NIBM Lecture notes (HND)/Computational Finance/Cw/Jetwing Hotels/Balance_Sheet-2024-25.csv", 
+                          header = FALSE,
+                          stringsAsFactors = FALSE)
+
+print(Balance_Sheet)
+```
+
+## Profitability Ratios
+
+# 1.Gross Profit Margin
+
+```{r}
+#Calculate Gross Profit Margin (Gross Profit/ Net Sales)
+# Extract values
+gross_profit_2024 <- Income_Statement[Income_Statement$V1 == "Gross Profit", 2]
+gross_profit_2025 <- Income_Statement[Income_Statement$V1 == "Gross Profit", 3]
+
+net_sales_2024 <- Income_Statement[Income_Statement$V1 == "Revenue", 2]
+net_sales_2025 <- Income_Statement[Income_Statement$V1 == "Revenue", 3]
+
+
+#Convert data in to numeric data 
+gross_profit_2024_clean <- as.numeric(gsub("[^0-9.]", "", gross_profit_2024))
+gross_profit_2025_clean <- as.numeric(gsub("[^0-9.]", "", gross_profit_2025))
+
+net_sales_2024_clean <- as.numeric(gsub("[^0-9.]", "", net_sales_2024))
+net_sales_2025_clean <- as.numeric(gsub("[^0-9.]", "", net_sales_2025))
+
+
+
+# Calculate Gross Profit Margin
+
+gross_profit_margin_2024 <- gross_profit_2024_clean / net_sales_2024_clean
+
+gross_profit_margin_2025 <- gross_profit_2025_clean / net_sales_2025_clean
+
+# Format as percentages with 2 decimal place
+gross_profit_margin_2024_pct <- percent(gross_profit_margin_2024, accuracy = 0.01)
+gross_profit_margin_2025_pct <- percent(gross_profit_margin_2025, accuracy = 0.01)
+
+# Print
+print(paste("Gross Profit Margin for 2024:", gross_profit_margin_2024_pct))
+print(paste("Gross Profit Margin for 2025:", gross_profit_margin_2025_pct))
+```
+
+# 2.Operating Profit Margin
+
+```{r}
+# Extract values
+operating_profit_2024 <- Income_Statement[Income_Statement$V1 == "Operating Income", 2]
+operating_profit_2025 <- Income_Statement[Income_Statement$V1 == "Operating Income", 3]
+
+
+#net_sales_2024 <- Income_Statement[Income_Statement$V1 == "Revenue", 2]
+#net_sales_2025 <- Income_Statement[Income_Statement$V1 == "Revenue", 3]
+
+#Convert data in to numeric data 
+operating_profit_2024_clean <- as.numeric(gsub("[^0-9.]", "", operating_profit_2024))
+operating_profit_2025_clean <- as.numeric(gsub("[^0-9.]", "", operating_profit_2025))
+
+
+#net_sales_2024_clean <- as.numeric(gsub("[^0-9.]", "", net_sales_2024))
+#net_sales_2025_clean <- as.numeric(gsub("[^0-9.]", "", net_sales_2025))
+
+operating_profit_margin_2024 <- operating_profit_2024_clean / net_sales_2024_clean 
+
+operating_profit_margin_2025 <- operating_profit_2025_clean / net_sales_2025_clean
+
+# Format as percentages with 2 decimal place
+operating_profit_margin_2024_pct <- percent(operating_profit_margin_2024, accuracy = 0.01)
+operating_profit_margin_2025_pct <- percent(operating_profit_margin_2025, accuracy = 0.01)
+
+# Print
+print(paste("Opearting Profit Margin for 2024:", operating_profit_margin_2024_pct))
+print(paste("Operating Profit Margin for 2025:", operating_profit_margin_2025_pct))
+```
+
+# 3.Net Profit Margin
+
+```{r}
+# Extract values
+net_profit_2024 <- Income_Statement[Income_Statement$V1 == "Net Income", 2]
+net_profit_2025 <- Income_Statement[Income_Statement$V1 == "Net Income", 3]
+
+net_sales_2024 <- Income_Statement[Income_Statement$V1 == "Revenue", 2]
+net_sales_2025 <- Income_Statement[Income_Statement$V1 == "Revenue", 3]
+
+#Convert data in to numeric data 
+net_profit_2024_clean <- as.numeric(gsub("[^0-9.]", "", net_profit_2024))
+net_profit_2025_clean <- as.numeric(gsub("[^0-9.]", "", net_profit_2025))
+
+net_sales_2024_clean <- as.numeric(gsub("[^0-9.]", "", net_sales_2024))
+net_sales_2025_clean <- as.numeric(gsub("[^0-9.]", "", net_sales_2025))
+
+net_profit_margin_2024 <- net_profit_2024_clean / net_sales_2024_clean 
+
+net_profit_margin_2025 <- net_profit_2025_clean / net_sales_2025_clean
+
+# Print the results
+cat("Net Profit Margin for 2024:", net_profit_margin_2024, "\n")
+cat("Net Profit Margin for 2025:", net_profit_margin_2025, "\n")
+```
+
+# 4.Return on Equity (ROE)
+
+```{r}
+#Calculate Return on Equity (ROE) (Profit After Tax/ Total Equity)
+
+# Extract values
+profit_after_tax_2024 <- Income_Statement[Income_Statement$V1 == "Net Income", 2]
+profit_after_tax_2025 <- Income_Statement[Income_Statement$V1 == "Net Income", 3]
+
+total_equity_2024 <- Balance_Sheet[Balance_Sheet$V1 == "Total Equity", 2]
+total_equity_2025 <- Balance_Sheet[Balance_Sheet$V1 == "Total Equity", 3]
+
+
+#Convert data in to numeric data 
+
+profit_after_tax_2024_clean <- as.numeric(gsub("[^0-9.]", "", profit_after_tax_2024))
+profit_after_tax_2025_clean <- as.numeric(gsub("[^0-9.]", "", profit_after_tax_2025))
+
+total_equity_2024_clean <- as.numeric(gsub("[^0-9.]", "", total_equity_2024))
+total_equity_2025_clean <- as.numeric(gsub("[^0-9.]", "", total_equity_2025))
+
+
+Return_on_Equity_2024 <- profit_after_tax_2024_clean / total_equity_2024_clean
+Return_on_Equity_2025 <- profit_after_tax_2025_clean / total_equity_2025_clean
+
+
+# Format as percentages with 2 decimal place
+Return_on_Equity_2024_pct <- percent(Return_on_Equity_2024, accuracy = 0.01)
+Return_on_Equity_2025_pct <- percent(Return_on_Equity_2025, accuracy = 0.01)
+
+# Print
+print(paste("Return on equity for 2024:", Return_on_Equity_2024_pct))
+print(paste("Return on equity for 2025:", Return_on_Equity_2025_pct))
+```
+
+## Liquidity Ratios
+
+# 5.Current Ratio
+
+```{r}
+# Extract values using exact labels
+current_assets_2024 <- Balance_Sheet[Balance_Sheet$V1 == "Total Current Assets", 2]
+current_assets_2025 <- Balance_Sheet[Balance_Sheet$V1 == "Total Current Assets", 3]
+
+current_liabilities_2024 <- Balance_Sheet[Balance_Sheet$V1 == "Total Current Liabilities", 2]
+current_liabilities_2025 <- Balance_Sheet[Balance_Sheet$V1 == "Total Current Liabilities", 3]
+
+# Clean numeric values
+current_assets_2024_clean <- as.numeric(gsub("[^0-9.]", "", current_assets_2024))
+current_assets_2025_clean <- as.numeric(gsub("[^0-9.]", "", current_assets_2025))
+
+current_liabilities_2024_clean <- as.numeric(gsub("[^0-9.]", "", current_liabilities_2024))
+current_liabilities_2025_clean <- as.numeric(gsub("[^0-9.]", "", current_liabilities_2025))
+
+# Calculate ratios
+current_ratio_2024 <- current_assets_2024_clean / current_liabilities_2024_clean
+current_ratio_2025 <- current_assets_2025_clean / current_liabilities_2025_clean
+
+# Format with 2 decimal places
+current_ratio_2024_fmt <- format(round(current_ratio_2024, 2), nsmall = 2)
+current_ratio_2025_fmt <- format(round(current_ratio_2025, 2), nsmall = 2)
+
+# Print results
+print(paste("Current Ratio for 2024:", current_ratio_2024_fmt))
+print(paste("Current Ratio for 2025:", current_ratio_2025_fmt))
+
+```
+
+
+
+# 6. Quick Ratio
+
+```{r}
+inventory_2024 <- Balance_Sheet[Balance_Sheet$V1 == "Inventory", 2]
+inventory_2025 <- Balance_Sheet[Balance_Sheet$V1 == "Inventory", 3]
+
+inventory_2024_clean <- as.numeric(gsub("[^0-9.]", "", inventory_2024))
+inventory_2025_clean <- as.numeric(gsub("[^0-9.]", "", inventory_2025))
+
+quick_ratio_2024 <- (current_assets_2024_clean - inventory_2024_clean) / current_liabilities_2024_clean
+quick_ratio_2025 <- (current_assets_2025_clean - inventory_2025_clean) / current_liabilities_2025_clean
+
+quick_ratio_2024_fmt <- format(round(quick_ratio_2024, 2), nsmall = 2)
+quick_ratio_2025_fmt <- format(round(quick_ratio_2025, 2), nsmall = 2)
+
+print(paste("Quick Ratio for 2024:", quick_ratio_2024_fmt))
+print(paste("Quick Ratio for 2025:", quick_ratio_2025_fmt))
+
+
+
+
+```
+
+## Efficiency Ratios
+
+# 7.Inventory Turnover Ratio
+
+
+
+```{r}
+#1.	As the annual report does not separately disclose credit sales, total revenue has been assumed to represent net credit sales for the purpose of calculating the trade receivable turnover ratio	
+
+#2.	Closing Balances as at 31.03.2023 for some selected balances as follows"	
+
+
+Inventories_2023	<- 30078895
+Trade_Receivables_2023 <-	 30078895
+Trade_Payables_2023 <-	248861745 
+```
+
+
+```{r}
+# Extract values for COGS--------------------------------------------------------
+COGS_2024 <- Income_Statement[Income_Statement$V1 == "COGS", 2]
+COGS_2025 <- Income_Statement[Income_Statement$V1 == "COGS", 3]
+
+#Convert data in to numeric data 
+COGS_2024_clean <- as.numeric(gsub("[^0-9.]", "", COGS_2024))
+COGS_2025_clean <- as.numeric(gsub("[^0-9.]", "", COGS_2025))
+
+opening_inventory_2024 <- Inventories_2023	
+opening_inventory_2025 <- Balance_Sheet[Balance_Sheet$V1 == "Inventory", 2]
+
+closing_inventory_2024 <- Balance_Sheet[Balance_Sheet$V1 == "Inventory", 2]
+closing_inventory_2025 <- Balance_Sheet[Balance_Sheet$V1 == "Inventory", 3]
+
+#Convert data in to numeric data 
+opening_inventory_2024_clean <-  opening_inventory_2024
+opening_inventory_2025_clean <- as.numeric(gsub("[^0-9.]", "", opening_inventory_2025))
+
+closing_inventory_2024_clean <- as.numeric(gsub("[^0-9.]", "", closing_inventory_2024))
+closing_inventory_2025_clean <- as.numeric(gsub("[^0-9.]", "", closing_inventory_2025))
+
+print(opening_inventory_2024_clean)
+print(opening_inventory_2025_clean)
+print(closing_inventory_2024_clean)
+print(closing_inventory_2025_clean)
+
+```
+
+```{r}
+#Calculate average inventory
+Average_Inventory_2024 = (opening_inventory_2024_clean + closing_inventory_2024_clean)/2
+Average_Inventory_2025 = (opening_inventory_2025_clean + closing_inventory_2025_clean)/2
+
+print(Average_Inventory_2024)
+print(Average_Inventory_2025)
+```
+
+```{r}
+# Calculate Inventory Turnover Ratio 
+
+Inventory_Turnover_Ratio_2024 = COGS_2024_clean/Average_Inventory_2024
+Inventory_Turnover_Ratio_2025 = COGS_2025_clean/Average_Inventory_2025
+
+print(Inventory_Turnover_Ratio_2024)
+print(Inventory_Turnover_Ratio_2025)
+```
+
+# 8.Inventory Turnover Days
+
+```{r}
+Inventory_Turnover_Days_2024 = 365/Inventory_Turnover_Ratio_2024
+Inventory_Turnover_Days_2025 = 365/Inventory_Turnover_Ratio_2025
+
+print(Inventory_Turnover_Days_2024)
+print(Inventory_Turnover_Days_2025)
+```
+
+# 9. Trade Receivable Turnover Ratio
+
+```{r}
+# Extract Revenue and calculate Credit Sales
+#------------------------------------------
+
+Revenue_2024 <- Income_Statement[Income_Statement$V1 == "Revenue", 2]
+Revenue_2025 <- Income_Statement[Income_Statement$V1 == "Revenue", 3]
+
+# Clean numeric
+Revenue_2024_clean <- as.numeric(gsub("[^0-9.]", "", Revenue_2024))
+Revenue_2025_clean <- as.numeric(gsub("[^0-9.]", "", Revenue_2025))
+
+# 100% credit sales
+Credit_Sales_2024 <- 1.00 * Revenue_2024_clean
+Credit_Sales_2025 <- 1.00 * Revenue_2025_clean
+
+print(Credit_Sales_2024)
+print(Credit_Sales_2025)
+
+```
+
+```{r}
+# Extract Accounts Receivable (AR)
+#------------------------------------------
+# Opening AR for 2024 (from Extra_Info – 2023 closing)
+opening_AR_2024 <- Trade_Receivables_2023
+
+# Closing AR 2024 and 2025 (from Balance Sheet)
+closing_AR_2024 <- Balance_Sheet[Balance_Sheet$V1 == "Trade Receivables", 2]
+closing_AR_2025 <- Balance_Sheet[Balance_Sheet$V1 == "Trade Receivables", 3]
+
+# Clean numeric
+opening_AR_2024_clean <- opening_AR_2024
+closing_AR_2024_clean <- as.numeric(gsub("[^0-9.]", "", closing_AR_2024))
+closing_AR_2025_clean <- as.numeric(gsub("[^0-9.]", "", closing_AR_2025))
+
+# Opening AR for 2025 = Closing AR 2024
+opening_AR_2025_clean <- closing_AR_2024_clean
+
+# Calculate Average Accounts Receivable
+#------------------------------------------
+Average_AR_2024 <- (opening_AR_2024_clean + closing_AR_2024_clean) / 2
+Average_AR_2025 <- (opening_AR_2025_clean + closing_AR_2025_clean) / 2
+
+print(Average_AR_2024)
+print(Average_AR_2025)
+```
+
+```{r}
+# Trade Receivable Turnover Ratio
+#------------------------------------------
+TR_Turnover_2024 <- Credit_Sales_2024 / Average_AR_2024
+TR_Turnover_2025 <- Credit_Sales_2025 / Average_AR_2025
+
+print(TR_Turnover_2024)
+print(TR_Turnover_2025)
+```
+
+
+# 10. Average Number of Days Receivable Outstanding
+
+
+```{r}
+Days_Receivable_2024 <- 365 / TR_Turnover_2024
+Days_Receivable_2025 <- 365 / TR_Turnover_2025
+
+cat("Average Number of Days Receivable Outstanding 2024:" ,Days_Receivable_2024, "\n")
+cat("Average Number of Days Receivable Outstanding 2025:",Days_Receivable_2025, "\n")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
